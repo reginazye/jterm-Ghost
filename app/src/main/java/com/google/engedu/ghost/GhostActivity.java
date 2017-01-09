@@ -62,7 +62,12 @@ public class GhostActivity extends AppCompatActivity {
         onStart(null);
     }
 
-    // TODO(you): Handle onSaveInstanceState
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // TODO(you): Handle onSaveInstanceState
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
