@@ -17,6 +17,8 @@ package com.google.engedu.ghost;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Objects;
+import java.util.Set;
 
 public class TrieNode {
     // A map from the next character in the alphabet to the trie node containing those words
@@ -36,6 +38,16 @@ public class TrieNode {
      */
     public void add(String s) {
         // TODO(you): add String s to this node.
+        if (s.equals("")){
+            isWord = true;
+        } else {
+            Character head = s.charAt(0);
+            String rest = s.substring(1);
+            if (!children.containsKey(head)){
+                children.put(head, new TrieNode())
+            }
+            children.get(head).add(rest);
+        }
     }
 
     /**
@@ -46,7 +58,15 @@ public class TrieNode {
      */
     public boolean isWord(String s) {
         // TODO(you): determine whether this node is part of a complete word for String s.
-        return false;
+        if (s.length()==0){
+            return isWord;
+        }
+        Character head = s.charAt(0);
+        String rest = s.substring(1);
+        if (!children.containsKey(head)) {
+            return false;
+        }
+        return children.get(head).isWord(rest);
     }
 
     /**
@@ -57,6 +77,30 @@ public class TrieNode {
      */
     public String getAnyWordStartingWith(String s) {
         // TODO(you):
+        if (s.isEmpty()){
+            return "";
+        }else {
+            Set<Character> keySet = children.keySet();
+            if (keySet.isEmpty()) {
+                return null;
+            }
+            Object[] validKids = keySet.toArray();
+            int randomKid = (int) Math.floor(Math.random() *validKids.length);
+            Character letter = (Character) validKids[randomKid];
+            return letter + children.get(letter).getAnyWordStartingWith("");
+        }
+        else {
+            Character head = s.charAt(0);
+            String rest = s.substring(1);
+            if (!children.containsKey(head)) {
+                return null;
+            }
+            String word = children.get(head).getAnyWordStartingWith(rest);
+            if (word == null) {
+                return null;
+            }
+            return head+word;
+        }
         return null;
     }
 

@@ -31,13 +31,27 @@ import static org.junit.Assert.assertTrue;
 
 public class SimpleDictionaryTest {
 
-    @Test
-    public void testIsWord() {
-        // TODO(you): Add some tests!
+    SimpleDictionary dictionary;
+
+    private void setup() {
+
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add("dance");
+        list.add("done");
+        list.add("math");
+        list.add("mount");
+        list.add("north");
+        dictionary = new SimpleDictionary(list,0);
     }
+    @Test
+    public void testIsWord(){}
+
+
 
     @Test
     public void testGetAnyWordStartingWith() {
         // TODO(you): Add some tests!
+        assertEquals(dictionary.getAnyWordStartingWith("don"),"done");
     }
 }
